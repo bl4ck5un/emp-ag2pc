@@ -13,7 +13,7 @@ using std::flush;
 
 namespace emp {
 
-void send_bool_aligned(NetIO* io, const bool * data, int length) {
+inline void send_bool_aligned(NetIO* io, const bool * data, int length) {
 	unsigned long long * data64 = (unsigned long long * )data;
 	int i = 0;
 #if !defined(__BMI2__)
@@ -37,7 +37,8 @@ void send_bool_aligned(NetIO* io, const bool * data, int length) {
 	if (8*i != length)
 		io->send_data(data + 8*i, length - 8*i);
 }
-void recv_bool_aligned(NetIO* io, bool * data, int length) {
+
+inline void recv_bool_aligned(NetIO* io, bool * data, int length) {
 	unsigned long long * data64 = (unsigned long long *) data;
 	int i = 0;
 #if !defined(__BMI2__)
@@ -60,7 +61,8 @@ void recv_bool_aligned(NetIO* io, bool * data, int length) {
 	if (8*i != length)
 		io->recv_data(data + 8*i, length - 8*i);
 }
-void send_bool(NetIO * io, bool * data, int length) {
+
+inline void send_bool(NetIO * io, bool * data, int length) {
 	void * ptr = (void *)data;
 	size_t space = length;
 	void * aligned = boost::alignment::align(alignof(uint64_t), sizeof(uint64_t), ptr, space);
@@ -73,7 +75,7 @@ void send_bool(NetIO * io, bool * data, int length) {
     }
 }
 
-void recv_bool(NetIO * io, bool * data, int length) {
+inline void recv_bool(NetIO * io, bool * data, int length) {
 	void * ptr = (void *)data;
 	size_t space = length;
 	void * aligned = boost::alignment::align(alignof(uint64_t), sizeof(uint64_t), ptr, space);

@@ -9,7 +9,7 @@
 
 namespace emp {
 //#define __debug
-void abit_run(DeltaOT * abit, NetIO * io, bool send, block * blocks, bool * bools, int length) {
+inline void abit_run(DeltaOT * abit, NetIO * io, bool send, block * blocks, bool * bools, int length) {
 	io->flush();
 	if(send) {
 		abit->send(blocks, length);
@@ -393,7 +393,7 @@ class Fpre {
 			delete[] r2;
 		}
 };
-void combine_merge(Fpre * fpre, int start, int length, int I, bool * data, bool* data2, block * MAC2, block * KEY2, bool *r2, int * location) {
+inline void combine_merge(Fpre * fpre, int start, int length, int I, bool * data, bool* data2, block * MAC2, block * KEY2, bool *r2, int * location) {
 	fpre->io[I]->flush();
 	int bucket_size = fpre->bucket_size;
 	for(int i = start; i < start+length; ++i) {
