@@ -26,7 +26,7 @@ class AmortizedC2PC { public:
 	block * labels[exec];
 
 	bool * mask[exec];
-	CircuitFile * cf;
+	const CircuitFile * cf;
 	NetIO * io;
 	int num_ands = 0;
 	int party, total_pre;
@@ -36,10 +36,7 @@ class AmortizedC2PC { public:
 	bool * x2[exec];
 	bool * y2[exec];
 
-	AmortizedC2PC(NetIO * io, int party, CircuitFile * cf) {
-		this->party = party;
-		this->io = io;
-		this->cf = cf;
+	AmortizedC2PC(NetIO * io, int party, const CircuitFile * cf): party(party), io(io), cf(cf) {
 		for(int i = 0; i < cf->num_gate; ++i) {
 			if (cf->gates[4*i+3] == AND_GATE)
 				++num_ands;
