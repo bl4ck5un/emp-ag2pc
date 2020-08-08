@@ -26,14 +26,12 @@ class C2PC { public:
 	block * labels = nullptr;
 
 	bool * mask = nullptr;
-	CircuitFile * cf;
+	const CircuitFile * cf;
 	NetIO * io;
 	int num_ands = 0;
-	int party, total_pre;
-	C2PC(NetIO * io, int party, CircuitFile * cf) {
-		this->party = party;
-		this->io = io;
-		this->cf = cf;
+	const int party;
+	int total_pre;
+	C2PC(NetIO * io, int party, CircuitFile * cf): cf(cf), io(io), party(party) {
 		for(int i = 0; i < cf->num_gate; ++i) {
 			if (cf->gates[4*i+3] == AND_GATE)
 				++num_ands;

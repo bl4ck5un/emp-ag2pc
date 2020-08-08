@@ -1,4 +1,3 @@
-
 #include "emp-ag2pc/2pc.h"
 #include "emp-ag2pc/helper.h"
 #include "emp-ag2pc/amortized_2pc.h"
